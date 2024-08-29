@@ -1,2 +1,2 @@
 # raiden-shogun-statistic-assistant
-![alt text](assets\logo.png)
+![alt text](assets/logo.png)
