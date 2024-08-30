@@ -35,8 +35,6 @@ loaded_token = AutoTokenizer.from_pretrained("intent_model", local_files_only=Tr
 loaded_model = RoBertaIntentsClassifier(ro_model, 3).to("cpu")
 state_dict = torch.load(f"intent_model\\raiden_itents_classifier_model.pth", map_location=torch.device('cpu'))
 loaded_model.load_state_dict(state_dict)
-loaded_model.eval()
-
 
 translator = Translator()
 
@@ -52,6 +50,7 @@ def predict_intents(request, translator, model, tokenizer, intents_labels):
 
     return predicted_intent
 
-cus_request = "Hãy cho tôi thông tin thống kê về cuộc gọi tháng 3"
-customer_intent = predict_intents(cus_request, translator, loaded_model, loaded_token, intents_labels)
-print(f"Customer intent is: {customer_intent}")
+# example
+# cus_request = "Hãy cho tôi thông tin thống kê về cuộc gọi tháng 3"
+# customer_intent = predict_intents(cus_request, translator, loaded_model, loaded_token, intents_labels)
+# print(f"Customer intent is: {customer_intent}")
