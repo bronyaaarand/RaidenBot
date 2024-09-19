@@ -12,7 +12,7 @@ const HomeScreen = () => {
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: 'https://i.pinimg.com/originals/55/a0/c5/55a0c52c088605da8fb9697fd653026a.png',
+            uri: 'https://icones.pro/wp-content/uploads/2022/10/icone-robot-violet.png',
           }}
           style={styles.image}
           resizeMode="cover"

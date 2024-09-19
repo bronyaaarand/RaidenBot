@@ -1,9 +1,10 @@
 // app/chat/bot.tsx
 
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator  } from 'react-native';
 import { useRouter } from 'expo-router';
 import ChatHeader from '@/components/RaidenChatHeader';
+import { MongoClient } from 'mongodb';
 
 const botMessages = [
   { id: '1', text: 'Đây là tin nhắn từ Zalo !' },

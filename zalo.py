@@ -62,19 +62,25 @@ def main_intent_classification(customer_request):
     return customer_intent
 
 def check_message_event():
+    
     previous_response = ""
+    
     previous_bot = ""
+
     while True:
+
         try:
+
             res = req.get(uri_get_message, headers=auth)
+
             res.raise_for_status()
 
             message_data = res.json()['data'][0]
+
             current_message = message_data['message']
 
             if current_message != previous_response and current_message != previous_bot:
-                print("Received a new message:")
-                print(current_message)
+
                 previous_response = current_message
 
                 dify_body = {    
@@ -91,21 +97,23 @@ def check_message_event():
 
                 current_bot = dify_response.json()["answer"]
 
-                print(current_bot)
-
                 previous_bot = current_bot
+
+                user_id = "1696434873920451916"
 
                 body = {
                     "recipient": {
-                        "user_id": "1696434873920451916"
+                        "user_id": user_id
                     },
                     "message": {
                         "text": current_bot
                     }
                 }
+
                 pos_res = req.post(uri_post_message, json=body, headers=auth)
 
         except req.exceptions.RequestException as e:
+
             print(f"An error occurred: {e}")
 
         time.sleep(2)
