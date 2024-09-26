@@ -7,7 +7,7 @@ This project consists of two main components:
 
 2. **API**: The backend API is responsible for ensuring smooth interaction between the mobile app and the necessary data. It acts as a bridge to support data exchange and processing required by the app's functionalities.
 
-The project integrates modern technologies to provide users with an interactive and responsive mobile experience.
+The project integrates above technologies to provide users with an interactive and responsive mobile experience.
 
 ## Structure
 
