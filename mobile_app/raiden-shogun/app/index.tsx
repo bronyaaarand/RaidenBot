@@ -1,7 +1,5 @@
-// app/index.tsx
-
 import React from 'react';
-import { View, Button, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const HomeScreen = () => {
@@ -20,16 +18,19 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.navContainer}>
-        <Button
-          color={"#6200ee"}
-          title="Chat with Agent"
+        <TouchableOpacity
+          style={styles.navItem}
           onPress={() => router.push('/(tabs)/bot')}
-        />
-        <Button
-          color={"#6200ee"}
-          title="Chat with Customer"
+        >
+          <Text style={styles.navText}>AI</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.navItem}
           onPress={() => router.push('/(tabs)/person')}
-        />
+        >
+          <Text style={styles.navText}>Khách hàng</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -58,7 +59,18 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   navItem: {
-    backgroundColor: '#6200ee' 
+    flex: 1,
+    backgroundColor: '#6200ee',
+    marginHorizontal: 10,
+    paddingVertical: 20, 
+    borderRadius: 10, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

@@ -1,7 +1,7 @@
 // export default ChatWithBotScreen;
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator,Modal, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator,Modal, TouchableOpacity, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import ChatHeader from '@/components/RaidenChatHeader';
 
@@ -16,6 +16,7 @@ const ChatWithBotScreen = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [editedMessage, setEditedMessage] = useState<string>(''); 
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const router = useRouter();
 
@@ -61,6 +62,7 @@ const ChatWithBotScreen = () => {
 
   const handlePressMessage = (message: Message) => {
     setSelectedMessage(message); 
+    setEditedMessage(message.agent_response);
     setShowPopup(true);
   };
   
@@ -78,7 +80,7 @@ const ChatWithBotScreen = () => {
         user_id: "1696434873920451916",
       },
       message: {
-        text: selectedMessage.agent_response,
+        text: editedMessage,
       },
     };
   
@@ -93,9 +95,9 @@ const ChatWithBotScreen = () => {
       });
   
       if (response.ok) {
-        console.log('Gửi tin nhắn thành công');
+        console.log('Message sent successfully');
       } else {
-        console.error('Gửi tin nhắn thất bại');
+        console.error('Sending message failed');
       }
     } catch (error) {
       console.error('Error sending message:', error);
@@ -119,7 +121,7 @@ const ChatWithBotScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ChatHeader title="Raiden" />
+      <ChatHeader title="Phản hồi từ AI Raiden" />
       <FlatList
         data={botMessages}
         keyExtractor={(item) => item.id}
@@ -141,14 +143,25 @@ const ChatWithBotScreen = () => {
           transparent={true}
           animationType="fade"
           visible={showPopup}
-          onRequestClose={() => setShowPopup(false)}
-        >
-          <TouchableOpacity style={styles.overlay} onPress={() => setShowPopup(false)}>
+          onRequestClose={() => setShowPopup(false)}>
+          <View style={styles.overlay}>
             <View style={styles.popupContainer}>
-              <Text style={styles.popupOption} onPress={handleSendToCustomer}>Gửi cho khách hàng</Text>
-              <Text style={styles.popupOption} onPress={() => setShowPopup(false)}>Thoát</Text>
+              <TextInput
+                style={styles.textInputStyle}
+                value={editedMessage}
+                multiline={true}
+                onChangeText={setEditedMessage}
+                placeholder="Chỉnh sửa câu trả lời..."
+                textAlignVertical="top"
+              />
+              <TouchableOpacity onPress={handleSendToCustomer}>
+                <Text style={styles.popupOption}>Gửi cho khách hàng</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setShowPopup(false)}>
+                <Text style={styles.popupOption}>Thoát</Text>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         </Modal>
       )}
 
@@ -179,10 +192,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   popupContainer: {
-    width: 200,
+    width: '90%',
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 10,
+    padding: 20, 
     shadowColor: '#000',
     shadowOpacity: 0.5,
     shadowRadius: 10,
@@ -196,7 +209,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: '#6200ee',
   },
-  
+  textInputStyle: {
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
+    height: 150, 
+    maxHeight: 200, 
+    width: '100%',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

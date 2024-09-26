@@ -44,6 +44,10 @@ const ChatWithPersonScreen = () => {
     from_id: string;
   }
 
+  const handleNavigateToBot = () => {
+    router.push('/(tabs)/bot');
+  };
+
   const fetchMessages = async () => {
     try {
       const accessToken = await getAccessToken();
@@ -137,11 +141,14 @@ const ChatWithPersonScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ChatHeader title="Chat with Customer" />
+      <ChatHeader title="Danh sách tin nhắn từ Zalo (10)" />
 
-      <View style={styles.refreshContainer}>
-        <TouchableOpacity style={styles.refreshButton} onPress={fetchMessages}>
+      <View style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.refreshButton} onPress={fetchMessages}>
           <Text style={styles.refreshText}>Làm mới tin nhắn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navigateButton} onPress={handleNavigateToBot}>
+          <Text style={styles.buttonText}>Kiểm tra phản hồi của AI</Text>
         </TouchableOpacity>
       </View>
 
@@ -262,22 +269,32 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
-  refreshContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  refreshButton: {
-    backgroundColor: '#6200ee',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
   refreshText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  refreshButton: {
+    backgroundColor: '#6200ee',
+    padding: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  navigateButton: {
+    backgroundColor: '#6200ee',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 export default ChatWithPersonScreen;

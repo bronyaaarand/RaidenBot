@@ -18,10 +18,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ title }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     padding: 15,
-    backgroundColor: '#6200ee', // Màu nền của header
+    backgroundColor: '#6200ee', 
   },
   headerText: {
-    color: 'white', // Màu chữ
+    color: 'white', 
     fontSize: 20,
     fontWeight: 'bold',
   },
