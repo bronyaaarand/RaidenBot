@@ -34,7 +34,7 @@ const HomeScreen = () => {
 
   const fetchUserIds = async (token: string) => {
     try {
-      const response = await fetch('https://openapi.zalo.me/v3.0/oa/user/getlist?data={"offset":0,"count":50,"last_interaction_period":"L30D"}', {
+      const response = await fetch('https://openapi.zalo.me/v3.0/oa/user/getlist?data={"offset":0,"count":50}', {
         headers: {
           'access_token': token,
         },
@@ -101,7 +101,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Danh sách người dùng</Text>
+      <Text style={styles.title}>Danh sách khách hàng</Text>
       {users.length > 0 ? (
         <FlatList
           data={users}
