@@ -1,8 +1,8 @@
-// app/chat/person.tsx
+// app/tabs/person.tsx
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter , useLocalSearchParams } from 'expo-router';
 import ChatHeader from '@/components/RaidenChatHeader';
 
 const ChatWithPersonScreen = () => {
@@ -18,6 +18,9 @@ const ChatWithPersonScreen = () => {
   const [showPopup, setShowPopup] = useState(false); 
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const userId = params.user_id as string;
+  const userName = params.user_name as string;
 
   const targetFromId = "2369284118391448762"; 
 
@@ -45,7 +48,7 @@ const ChatWithPersonScreen = () => {
   }
 
   const handleNavigateToBot = () => {
-    router.push('/(tabs)/bot');
+    router.push(`/(tabs)/bot?user_id=${userId}`);
   };
 
   const fetchMessages = async () => {
@@ -58,7 +61,7 @@ const ChatWithPersonScreen = () => {
       }
 
       const response = await fetch(
-        'https://openapi.zalo.me/v2.0/oa/conversation?data={"user_id":1696434873920451916,"offset":0,"count":10}', 
+        `https://openapi.zalo.me/v2.0/oa/conversation?data={"user_id":${userId},"offset":0,"count":10}`, 
         {
           method: 'GET',
           headers: {
@@ -78,7 +81,9 @@ const ChatWithPersonScreen = () => {
 
     } catch (error) {
       console.error('Error fetching messages:', error);
+      console.log(`User's ID is:`, userId)
     } finally {
+      console.log(`User's ID is:`, userId)
       setLoading(false);
     }
   };
@@ -141,7 +146,7 @@ const ChatWithPersonScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ChatHeader title="Danh sách tin nhắn từ Zalo (10)" />
+      <ChatHeader title={userName} />
 
       <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.refreshButton} onPress={fetchMessages}>

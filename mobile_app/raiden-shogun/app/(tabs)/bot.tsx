@@ -1,8 +1,8 @@
-// export default ChatWithBotScreen;
+// app/tabs/bot.tsx
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator,Modal, TouchableOpacity, TextInput } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import ChatHeader from '@/components/RaidenChatHeader';
 
 const ChatWithBotScreen = () => {
@@ -19,6 +19,8 @@ const ChatWithBotScreen = () => {
   const [editedMessage, setEditedMessage] = useState<string>(''); 
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const userId = params.user_id as string;
 
   const getAccessToken = async () => {
     try {
@@ -77,7 +79,7 @@ const ChatWithBotScreen = () => {
   
     const payload = {
       recipient: {
-        user_id: "1696434873920451916",
+        user_id: userId,
       },
       message: {
         text: editedMessage,
@@ -95,7 +97,7 @@ const ChatWithBotScreen = () => {
       });
   
       if (response.ok) {
-        console.log('Message sent successfully');
+        console.log(`Message sent successfully to id:`, userId);
       } else {
         console.error('Sending message failed');
       }
@@ -121,7 +123,7 @@ const ChatWithBotScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ChatHeader title="Phản hồi từ AI Raiden" />
+      <ChatHeader title="Phản hồi từ AI" />
       <FlatList
         data={botMessages}
         keyExtractor={(item) => item.id}
