@@ -26,7 +26,7 @@ const ChatWithPersonScreen = () => {
 
   const getAccessToken = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:5000/access-token');
+      const response = await fetch('https://renderbaseapi.onrender.com/access-token');
       const data = await response.json();
       
       if (data.access_token) {
@@ -100,7 +100,7 @@ const ChatWithPersonScreen = () => {
   const handleSendToAI = async () => {
     if (selectedMessage) {
       try {
-        const response = await fetch('http://10.0.2.2:5000/dify-message', {
+        const response = await fetch('https://renderbaseapi.onrender.com/dify-message', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
