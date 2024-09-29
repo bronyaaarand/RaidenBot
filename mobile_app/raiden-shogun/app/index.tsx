@@ -74,6 +74,15 @@ const HomeScreen = () => {
     setUsers(userDetails.filter((user): user is User => user !== null));
   };
 
+  const refreshToken = async () => {
+    try {
+      await fetch('https://rendertokenapi.onrender.com/start-token-process');
+      console.log('Refresh token API called');
+    } catch (error) {
+      console.error('Error calling refresh token API:', error);
+    }
+  };
+
   useEffect(() => {
     const getTokenAndFetchUsers = async () => {
       const token = await getAccessToken();
@@ -101,6 +110,9 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={refreshToken} style={styles.refreshButton}>
+        <Text style={styles.buttonText}>Refresh Token</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Danh sách khách hàng</Text>
       {users.length > 0 ? (
         <FlatList
@@ -139,6 +151,18 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 16,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  refreshButton: {
+    backgroundColor: '#6200ee',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+    alignItems: 'center',
   },
 });
 
