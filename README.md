@@ -202,5 +202,7 @@ eas build -p android --profile preview
 #### Bước 3: Tải APK File
 - Tải APK file về sau khi quá trình build hoàn tất.
 
-[![Download APK](https://raw.githubusercontent.com/octalops/MyDis/main/button-apk.png)](https://github.com/bronyaaarand/RaidenBot/releases/download/apk/raiden.apk)
+<a href="https://github.com/bronyaaarand/RaidenBot/releases/download/apk/raiden.apk">
+  <img src="https://github.com/bronyaaarand/RaidenBot/releases/download/apk/raiden.apk" alt="Download APK" width="150">
+</a>
 
