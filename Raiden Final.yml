@@ -1,0 +1,476 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Raiden Final
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.2
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: question-classifier
+      id: 1711528708197-1711528709608
+      selected: false
+      source: '1711528708197'
+      sourceHandle: source
+      target: '1711528709608'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1711528709608-1711528768556
+      selected: false
+      source: '1711528709608'
+      sourceHandle: '1711528736036'
+      target: '1711528768556'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: question-classifier
+        targetType: answer
+      id: 1711528709608-1711528775142
+      selected: false
+      source: '1711528709608'
+      sourceHandle: '1711528737066'
+      target: '1711528775142'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1711528768556-1711528802931
+      selected: false
+      source: '1711528768556'
+      sourceHandle: source
+      target: '1711528802931'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: 1711528802931-1711528833796
+      selected: false
+      source: '1711528802931'
+      sourceHandle: source
+      target: '1711528833796'
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1711528709608-1726830967461-17268324073900-target
+      selected: false
+      source: '1711528709608'
+      sourceHandle: '1726830967461'
+      target: '17268324073900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 17268324073900-source-17268325283510-target
+      source: '17268324073900'
+      sourceHandle: source
+      target: '17268325283510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 17268325283510-source-17268326244490-target
+      source: '17268325283510'
+      sourceHandle: source
+      target: '17268326244490'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables: []
+      height: 54
+      id: '1711528708197'
+      position:
+        x: -31.578716599164522
+        y: 601.7510421072287
+      positionAbsolute:
+        x: -31.578716599164522
+        y: 601.7510421072287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1711528736036'
+          name: Câu hỏi liên quan về báo cáo thống kê
+        - id: '1711528737066'
+          name: Câu hỏi khác
+        - id: '1726830967461'
+          name: Câu hỏi liên quan về doanh nghiệp
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            frequency_penalty: 0
+            max_tokens: 512
+            presence_penalty: 0
+            temperature: 0.7
+            top_p: 1
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: openai
+        query_variable_selector:
+        - '1711528708197'
+        - sys.query
+        selected: false
+        title: Phân loại câu hỏi
+        topics: []
+        type: question-classifier
+      height: 224
+      id: '1711528709608'
+      position:
+        x: 376.73549994622635
+        y: 745.8688013792195
+      positionAbsolute:
+        x: 376.73549994622635
+        y: 745.8688013792195
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - c6bc66d4-8155-49a2-b1a0-895316a51529
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          reranking_model:
+            model: ''
+            provider: ''
+          score_threshold: null
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.4
+            vector_setting:
+              embedding_model_name: text-embedding-3-large
+              embedding_provider_name: openai
+              vector_weight: 0.6
+        query_variable_selector:
+        - '1711528708197'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        single_retrieval_config:
+          model:
+            completion_params: {}
+            mode: chat
+            name: gpt-3.5-turbo
+            provider: openai
+        title: Truy xuất dataset
+        type: knowledge-retrieval
+      dragging: false
+      height: 92
+      id: '1711528768556'
+      position:
+        x: 642.2520359289065
+        y: 601.7510421072287
+      positionAbsolute:
+        x: 642.2520359289065
+        y: 601.7510421072287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: Xin lỗi, tôi không thể trả lời câu hỏi này.
+        desc: ''
+        selected: false
+        title: Lạc đề
+        type: answer
+        variables: []
+      height: 120
+      id: '1711528775142'
+      position:
+        x: 642.2520359289065
+        y: 813.6509926369898
+      positionAbsolute:
+        x: 642.2520359289065
+        y: 813.6509926369898
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1711528768556'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            frequency_penalty: 0
+            max_tokens: 512
+            presence_penalty: 0
+            temperature: 0.7
+            top_p: 1
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: openai
+        prompt_template:
+        - id: 85145ee4-9742-4617-a55c-bdb94e263d6c
+          role: system
+          text: 'Use the following context as your learned knowledge, inside <context></context>
+            XML tags.
+
+            <context>
+
+            {{#context#}}
+
+            </context>
+
+            Khách hàng sẽ hỏi các tiêu chí của báo cáo. Bạn chỉ trả lời yêu cầu của
+            khách hàng về báo cáo của agent hoặc báo cáo của 1 hoặc nhiều tháng nào
+            đó trong năm nay. Nếu khách hàng hỏi các báo cáo ngoài lề thì hãy trả
+            lời là chưa tạo báo cáo đó.
+
+            3. Nếu yêu cầu là báo cáo về thời gian thì cung cấp báo cáo tương ứng
+            và đường link dựa theo thời gian trong data đã được truy xuất:
+
+            "Đây là báo cáo từ ngày {{thời_gian_bắt_đầu}} đến ngày {{thời_gian_kết_thúc}}:
+            {{báo cáo}}"
+
+            4. Nếu yêu cầu là báo cáo về agent thì cung cấp báo cáo tương ứng và đường
+            link dựa theo agent trong file data:
+
+            "Đây là báo cáo {{loại_thống_kê}} của Agent {{agent}}: {{báo cáo}}"'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      dragging: false
+      height: 98
+      id: '1711528802931'
+      position:
+        x: 1020.2050647873491
+        y: 601.7510421072287
+      positionAbsolute:
+        x: 1020.2050647873491
+        y: 601.7510421072287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1711528802931.text#}}'
+        desc: ''
+        selected: true
+        title: Kết quả báo cáo
+        type: answer
+        variables:
+        - value_selector:
+          - '1711528802931'
+          - text
+          variable: text
+      dragging: false
+      height: 106
+      id: '1711528833796'
+      position:
+        x: 1352.1927227607182
+        y: 601.7510421072287
+      positionAbsolute:
+        x: 1352.1927227607182
+        y: 601.7510421072287
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - 01511d7b-f66a-46a4-ab20-9452bb5953bf
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          reranking_model:
+            model: ''
+            provider: ''
+          score_threshold: null
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.4
+            vector_setting:
+              embedding_model_name: text-embedding-3-large
+              embedding_provider_name: openai
+              vector_weight: 0.6
+        query_variable_selector:
+        - '1711528708197'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        single_retrieval_config:
+          model:
+            completion_params: {}
+            mode: chat
+            name: gpt-3.5-turbo
+            provider: openai
+        title: Truy xuất pdf
+        type: knowledge-retrieval
+      height: 92
+      id: '17268324073900'
+      position:
+        x: 651.9959281421875
+        y: 1036.0735736617646
+      positionAbsolute:
+        x: 651.9959281421875
+        y: 1036.0735736617646
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '17268324073900'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            frequency_penalty: 0
+            max_tokens: 512
+            presence_penalty: 0
+            temperature: 0.7
+            top_p: 1
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: openai
+        prompt_template:
+        - id: 85145ee4-9742-4617-a55c-bdb94e263d6c
+          role: system
+          text: 'Use the following context as your learned knowledge, inside <context></context>
+            XML tags.
+
+            <context>
+
+            {{#context#}}
+
+            </context>
+
+            Khách hàng sẽ hỏi về các thông tin của Công Ty Gcalls, những thông tin
+            mà bạn không chắc chắn hãy trả lời : "Tôi không có thông tin về câu hỏi
+            của bạn", còn nếu truy xuất được từ kết quả của truy xuất kiến thức hãy
+            trả lời cho khách hàng.'
+        selected: false
+        title: LLM (1)
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '17268325283510'
+      position:
+        x: 960.6590568172976
+        y: 1027.412336138848
+      positionAbsolute:
+        x: 960.6590568172976
+        y: 1027.412336138848
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#17268325283510.text#}}'
+        desc: ''
+        selected: false
+        title: Kết quả Gcalls
+        type: answer
+        variables:
+        - value_selector:
+          - '1711528802931'
+          - text
+          variable: text
+      height: 106
+      id: '17268326244490'
+      position:
+        x: 1317.9582868321156
+        y: 1058.9542276622158
+      positionAbsolute:
+        x: 1317.9582868321156
+        y: 1058.9542276622158
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -98.4954828876356
+      y: -220.02874562806448
+      zoom: 0.6093853943072878
